@@ -18,8 +18,8 @@
                 <p>Email</p>
                 <input type="email" id="email"  name="email" placeholder="Enter Email">
                 <input type="submit" name="" value"Login">
-                <a href="#">Lost your passcode?</a><br>
-                <a href="{% url "login" %}">Already have an account?</a>
+                <a href="{% url 'forget_passcode' %}">Lost your passcode?</a><br>
+                <a href="{% url 'login' %}">Already have an account?</a>
             </form>
         </div>
         </body>
