@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link href="{% static 'login.css' %}" rel = "stylesheet">
+</head>
+    <body>
+        <div class="loginbox">
+        <img src="http://comic-cons.xyz/wp-content/uploads/Star-Wars-avatar-icon-Greedo.png" class="avatar">
+        
+        <h1>Signup Here</h1>
+            <form method = "post" action="{% url 'signup' %}" >
+                {% csrf_token %}
+            <p>Username</p>
+                <input type="text" id="username"  name="username" placeholder="Enter Codename">
+                <p>Pasword</p>
+                <input type="password" id="password" name="password" placeholder="Enter Passcode">
+                <p>Email</p>
+                <input type="email" id="email"  name="email" placeholder="Enter Email">
+                <input type="submit" name="" value"Login">
+                <a href="#">Lost your passcode?</a><br>
+                <a href="{% url "login" %}">Already have an account?</a>
+            </form>
+        </div>
+        </body>
+{% endblock %}
