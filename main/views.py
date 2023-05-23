@@ -31,17 +31,13 @@ def signup_logic(request):
         username = request.POST["username"]
         password = request.POST["password"]
         email = request.POST["email"]
-        # form = UserForm(request.POST)
-        # if form.is_valid():
-        # extracting user data from form
-        # username = form.cleaned_data['username']
-        # password = form.cleaned_data['password']
-        # email = form.cleaned_data['email']
-        # # creating user
-        user = User(username=username, password=password, email=email)
+        if User.objects.filter(email=email).exists():
+            return render(request, "signup.html", {"message": "This email already exits try with new email.."})
         # save user into the database
-        user.save()
-    return render(request, "login.html")
+        else:
+            user = User(username=username, password=password, email=email)
+            user.save()
+    return render(request, "login.html", {"message": "User register sucessfully..."})
 
 
 def forget_passcode(request):
