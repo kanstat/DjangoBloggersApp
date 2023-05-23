@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse
 from . forms import UserForm
 from . models import User
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 # Create your views here.
 
@@ -21,6 +23,10 @@ def login(request):
 
 
 def signup(request):
+    return render(request, "signup.html")
+
+
+def signup_logic(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -35,12 +41,13 @@ def signup(request):
         user = User(username=username, password=password, email=email)
         # save user into the database
         user.save()
-    return render(request, "signup.html")
+    return render(request, "login.html")
 
 
 def forget_passcode(request):
     if request.method == "POST":
         email = request.POST["email"]
         if User.objects.filter(email=email).exists():
+            # user_obj =
             pass
     return render(request, "forgetpasscode.html")
