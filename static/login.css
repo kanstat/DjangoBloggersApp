@@ -8,8 +8,9 @@ body {
 }
 
 .loginbox {
-    width: 320px;
-    height: 420px;
+    width: 400px;
+    height: 500px;
+    border-radius: 40px;
     background: #000;
     color: #fff;
     top: 50%;
@@ -50,7 +51,8 @@ h1 {
 }
 
 .loginbox input[type="text"],
-input[type="password"] {
+input[type="password"],
+[type="email"] {
     border: none;
     border-bottom: 1px solid #fff;
     background: transparent;
@@ -79,9 +81,9 @@ input[type="password"] {
 
 .loginbox a {
     text-decoration: none;
-    font-size: 12px;
+    font-size: 15px;
     line-height: 20px;
-    color: darkgrey;
+    color: #fff;
 }
 
 .loginbox a:hover {
