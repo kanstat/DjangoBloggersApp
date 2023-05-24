@@ -9,7 +9,7 @@
         <img src="http://comic-cons.xyz/wp-content/uploads/Star-Wars-avatar-icon-Greedo.png" class="avatar">
         
         <h1>Login Here</h1>
-            <form method = "post" action="{% url 'login' %}">
+            <form method = "post" action="{% url 'login_logic' %}">
             {% csrf_token %}
             <p>Codename</p>
                 <input type="text" name="username" placeholder="Enter Codename">

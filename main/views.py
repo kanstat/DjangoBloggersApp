@@ -12,14 +12,18 @@ def home(request):
 
 
 def login(request):
+    return render(request, 'login.html')
+
+
+def login_logic(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
         query = User.objects.filter(username=username, password=password)
         if query.exists():
-            return render(request, "login.html", {"message": "login sucessful"})
-
-    return render(request, "login.html", {"message": "Enter valid username and password"})
+            return render(request, "dashboard.html", {"message": "login sucessful"})
+        else:
+            return render(request, "login.html", {"message": "incorrect username or password"})
 
 
 def signup(request):
@@ -47,3 +51,7 @@ def forget_passcode(request):
             # user_obj =
             pass
     return render(request, "forgetpasscode.html")
+
+
+def dashboard(request):
+    return render(request, "dashboard.html")
