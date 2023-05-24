@@ -11,8 +11,8 @@
         <h1>Login Here</h1>
             <form method = "post" action="{% url 'login_logic' %}">
             {% csrf_token %}
-            <p>Codename</p>
-                <input type="text" name="username" placeholder="Enter Codename">
+            <p>Email</p>
+                <input type="text" name="email" placeholder="Enter Codename">
                 <p>Passcode</p>
                 <input type="password" name="password" placeholder="Enter Passcode">
                 <input type="submit" name="" value"Login">
