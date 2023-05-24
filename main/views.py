@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from . forms import UserForm
 from . models import User
+from django.contrib.auth.hashers import make_password, check_password
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
@@ -17,13 +18,17 @@ def login(request):
 
 def login_logic(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        query = User.objects.filter(username=username, password=password)
-        if query.exists():
-            return render(request, "dashboard.html", {"message": "login sucessful"})
-        else:
-            return render(request, "login.html", {"message": "incorrect username or password"})
+        email = request.POST['email']
+        raw_password = request.POST['password']
+        try:
+            user_obj = User.objects.get(email=email)
+            hashed_pasword = user_obj.password
+            if user_obj:
+                res = check_password(raw_password, hashed_pasword)
+                if res:
+                    return render(request, "dashboard.html", {"message": "login sucessful"})
+        except:
+            return render(request, "login.html", {"message": "incorrect email or password"})
 
 
 def signup(request):
@@ -33,7 +38,7 @@ def signup(request):
 def signup_logic(request):
     if request.method == "POST":
         username = request.POST["username"]
-        password = request.POST["password"]
+        password = make_password(request.POST["password"])
         email = request.POST["email"]
         if User.objects.filter(email=email).exists():
             return render(request, "signup.html", {"message": "This email already exits try with new email.."})
