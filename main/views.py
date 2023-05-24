@@ -3,7 +3,18 @@ from . forms import UserForm
 from . models import User
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils.encoding import force_bytes
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
+# urlsafe_base64_encode() and urlsafe_base64_decode() functions in Django are used to encode and decode data in a way that is safe
+# to use in URLs. The urlsafe_base64_encode() function takes a string as input and returns a base64-encoded string that does not
+# contain any characters that are not allowed in URLs. The urlsafe_base64_decode() function takes a base64-encoded string as input
+# and returns the original string, decoded from base64.
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+# as i am not using django's default user so, i dont have last_login field so, can't generate tokens from PasswordResetTokenGenerator.
+# from django.contrib.auth.tokens import PasswordResetTokenGenerator
+# for making tokens
+# for creating tokens...
+from .uuid_gen import uuid_genrator
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -46,6 +57,21 @@ def signup_logic(request):
         else:
             user = User(username=username, password=password, email=email)
             user.save()
+
+            '''urlsafe_base64_encode() and urlsafe_base64_decode( a bytes-like object is required, not 'str'or int) functions in Django are used to encode and decode 
+            data in a way that is safe to use in URLs. The urlsafe_base64_encode() function takes a string as
+            input and returns a base64-encoded string that does not contain any characters that are not allowed
+            in URLs. The urlsafe_base64_decode() function takes a base64-encoded string as input and returns the
+            original string, decoded from base64.'''
+            user_id = urlsafe_base64_encode(force_bytes(user.id))
+            # token generator
+            token = uuid_genrator()
+            link = f"http://127.0.0.1:8000/activate/{user_id}/{token}"
+            subject = "Registration"
+            email_content = f"Hi {user.username},\n\nThank you for signing up for our service. To verify your email address, please click on the following link:\n\n{link}\n\nIf you do not click on the link within 24 hours, your account will be deleted.\n\nThanks,\n[Django Bloggers]"
+            email_from = settings.EMAIL_HOST_USER
+            recepient_list = [email,]
+            send_mail(subject, email_content, email_from, recepient_list)
     return render(request, "login.html", {"message": "User register sucessfully..."})
 
 
