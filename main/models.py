@@ -9,3 +9,4 @@ class User(models.Model):
     email = models.EmailField()
     session_id = models.CharField(max_length=100, default=0)
     time_stamp = models.DateTimeField(default=timezone.now)
+    email_verification = models.BooleanField(default=0)
