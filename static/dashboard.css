@@ -1,78 +1,99 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500');
-
-body {
-    overflow-x: hidden;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+.navbar-global {
+    background-color: indigo;
 }
 
-/* Toggle Styles */
-
-#viewport {
-    padding-left: 250px;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+.navbar-global .navbar-brand {
+    color: white;
 }
 
-#content {
+.navbar-global .navbar-user>li>a {
+    color: white;
+}
+
+.navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    top: 51px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+}
+
+.navbar-primary.collapsed {
+    width: 60px;
+}
+
+.navbar-primary.collapsed .glyphicon {
+    font-size: 22px;
+}
+
+.navbar-primary.collapsed .nav-label {
+    display: none;
+}
+
+.btn-expand-collapse {
+    position: absolute;
+    display: block;
+    left: 0px;
+    bottom: 0;
     width: 100%;
-    position: relative;
-    margin-right: 0;
-}
-
-/* Sidebar Styles */
-
-#sidebar {
-    z-index: 1000;
-    position: fixed;
-    left: 250px;
-    width: 250px;
-    height: 100%;
-    margin-left: -250px;
-    overflow-y: auto;
-    background: #37474F;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#sidebar header {
-    background-color: #263238;
+    padding: 8px 0;
+    border-top: solid 1px #666;
+    color: grey;
     font-size: 20px;
-    line-height: 52px;
     text-align: center;
 }
 
-#sidebar header a {
-    color: #fff;
+.btn-expand-collapse:hover,
+.btn-expand-collapse:focus {
+    background-color: #222;
+    color: white;
+}
+
+.btn-expand-collapse:active {
+    background-color: #111;
+}
+
+.navbar-primary-menu,
+.navbar-primary-menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar-primary-menu li a {
     display: block;
+    padding: 20px 18px;
+    text-align: left;
+    border-bottom: solid 2px #444;
+    color: #ccc;
+}
+
+.navbar-primary-menu li a:hover {
+    background-color: #000;
     text-decoration: none;
+    color: white;
 }
 
-#sidebar header a:hover {
-    color: #fff;
+.navbar-primary-menu li a .glyphicon {
+    margin-right: 6px;
 }
 
-#sidebar .nav {
-    background: none;
+.navbar-primary-menu li a:hover .glyphicon {
+    color: orchid;
 }
 
-#sidebar .nav a {
-    background: none;
-    border-bottom: 1px solid #455A64;
-    color: #CFD8DC;
-    font-size: 14px;
-    padding: 16px 24px;
+.main-content {
+    margin-top: 60px;
+    margin-left: 200px;
+    padding: 20px;
 }
 
-#sidebar .nav a:hover {
-    background: none;
-    color: #ECEFF1;
-}
-
-#sidebar .nav a i {
-    margin-right: 16px;
+.collapsed+.main-content {
+    margin-left: 60px;
 }
