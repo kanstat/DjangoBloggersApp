@@ -37,7 +37,13 @@ def login_logic(request):
             if user_obj:
                 res = check_password(raw_password, hashed_pasword)
                 if res:
-                    return render(request, "dashboard.html", {"message": "login sucessful"})
+                    session_id = uuid_genrator()
+                    user_obj.session_id = session_id
+                    user_obj.save()
+                    response = render(request, "dashboard.html", {
+                                      "message": "login sucessful"})
+                    response.set_cookie('session_id', session_id)
+                    return response
         except:
             return render(request, "login.html", {"message": "incorrect email or password"})
 
