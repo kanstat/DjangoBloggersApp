@@ -9,14 +9,32 @@
         <img src="http://comic-cons.xyz/wp-content/uploads/Star-Wars-avatar-icon-Greedo.png" class="avatar">
         
         <h1>Forget Password</h1>
-        <form method = "post" action="{% url 'forgot_password_logic' %}">
+        <form method = "post" action="{% url 'reset' %}">
             {% csrf_token %}
             <p>New Password</p>
-                <input type="password" name="password" placeholder="Enter Codename">
+                <input type="password",id = "psw1" name="psw1" placeholder="Enter Codename">
             <p>Confirm Password</p>
-                <input type="password" name="password" placeholder="Enter Passcode">
+                <input type="password", id = "psw2" name="psw2" placeholder="Enter Passcode">
+                <input type="hidden" id="uid" name="uid"><br>
+                <input type="hidden" id="token" name="token"><br>
                 <input type="submit" name="" value"Submit">
-                <p>{{ message }}</p>
+                <p align="center">{{ message }}</p>
         </div>
+        <script>
+            urlp=[];
+            s=location.toString().split('?');
+            s=s[1].split('&');
+            
+            for(i=0;i<s.length;i++)
+            {
+            u=s[i].split('=');urlp[u[0]]=u[1];
+            }
+            uid_el = document.getElementById("uid")
+            uid_el.value = urlp["uid"] 
+        
+            token_ele = document.getElementById("token")
+            token_ele.value = urlp["token"]
+        </script>
         </body>
+
 {% endblock %}
