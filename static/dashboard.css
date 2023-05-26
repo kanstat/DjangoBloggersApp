@@ -1,99 +1,129 @@
-.navbar-global {
-    background-color: indigo;
+/*!
+ * Start Bootstrap - Simple Sidebar (https://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+    overflow-x: hidden;
 }
 
-.navbar-global .navbar-brand {
-    color: white;
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-.navbar-global .navbar-user>li>a {
-    color: white;
+#wrapper.toggled {
+    padding-left: 250px;
 }
 
-.navbar-primary {
-    background-color: #333;
-    bottom: 0px;
-    left: 0px;
-    position: absolute;
-    top: 51px;
-    width: 200px;
-    z-index: 8;
-    overflow: hidden;
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #000;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-.navbar-primary.collapsed {
-    width: 60px;
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
 }
 
-.navbar-primary.collapsed .glyphicon {
-    font-size: 22px;
-}
-
-.navbar-primary.collapsed .nav-label {
-    display: none;
-}
-
-.btn-expand-collapse {
-    position: absolute;
-    display: block;
-    left: 0px;
-    bottom: 0;
+#page-content-wrapper {
     width: 100%;
-    padding: 8px 0;
-    border-top: solid 1px #666;
-    color: grey;
-    font-size: 20px;
-    text-align: center;
+    position: absolute;
+    padding: 15px;
 }
 
-.btn-expand-collapse:hover,
-.btn-expand-collapse:focus {
-    background-color: #222;
-    color: white;
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
 }
 
-.btn-expand-collapse:active {
-    background-color: #111;
-}
+/* Sidebar Styles */
 
-.navbar-primary-menu,
-.navbar-primary-menu li {
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.navbar-primary-menu li a {
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
     display: block;
-    padding: 20px 18px;
-    text-align: left;
-    border-bottom: solid 2px #444;
-    color: #ccc;
-}
-
-.navbar-primary-menu li a:hover {
-    background-color: #000;
     text-decoration: none;
-    color: white;
+    color: #999999;
 }
 
-.navbar-primary-menu li a .glyphicon {
-    margin-right: 6px;
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
 }
 
-.navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
 }
 
-.main-content {
-    margin-top: 60px;
-    margin-left: 200px;
-    padding: 20px;
+.sidebar-nav>.sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
 }
 
-.collapsed+.main-content {
-    margin-left: 60px;
+.sidebar-nav>.sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
 }

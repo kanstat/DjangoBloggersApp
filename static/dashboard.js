@@ -1,3 +1,4 @@
-$('.btn-expand-collapse').click(function (e) {
-    $('.navbar-primary').toggleClass('collapsed');
+$("#menu-toggle").click(function (e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
 });
