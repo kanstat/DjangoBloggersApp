@@ -9,12 +9,14 @@
         <img src="http://comic-cons.xyz/wp-content/uploads/Star-Wars-avatar-icon-Greedo.png" class="avatar">
         
         <h1>Forget Password</h1>
-            <form method = "post" action="{% url 'forgot_password_logic' %}">
+        <form method = "post" action="{% url 'forgot_password_logic' %}">
             {% csrf_token %}
-            <p>Enter Email</p>
-                <input type="email" id= "email" name="email" placeholder="Enter Codename">        
+            <p>New Password</p>
+                <input type="password" name="password" placeholder="Enter Codename">
+            <p>Confirm Password</p>
+                <input type="password" name="password" placeholder="Enter Passcode">
                 <input type="submit" name="" value"Submit">
-            </form>
+                <p>{{ message }}</p>
         </div>
         </body>
 {% endblock %}

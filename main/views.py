@@ -91,7 +91,7 @@ def signup_logic(request):
             token = uuid_genrator()
             link = f"http://127.0.0.1:8000/activate/{user_id}/{token}/"
             subject = "Registration"
-            email_content = f"Hi {user.username},\n\nThank you for signing up for our service. To verify your email address, please click on the following link:\n\n{link}\n\nIf you do not click on the link within 24 hours, your account will be deleted.\n\nThanks,\n[Django Bloggers]"
+            email_content = f"Hi {user.username},\n\nThank you for signing up for our service. To verify your email address, please click on the following link:\n\n{link}\n\nIf you do not click on the link within 24 hours, your account will be deleted.\n\nThanks,\nDjango Bloggers"
             email_from = settings.EMAIL_HOST_USER
             recepient_list = [email,]
             send_mail(subject, email_content, email_from, recepient_list)
@@ -100,13 +100,28 @@ def signup_logic(request):
 
 
 def forget_passcode(request):
+    return render(request, "forgetpasscode.html")
+
+
+def forgot_password_logic(request):
     if request.method == "POST":
         email = request.POST["email"]
         user = User.objects.get(email=email)
-        if user.exists():
-            pass
+    if user:
+        uid = urlsafe_base64_encode(force_bytes(user.id))
+        token = uuid_genrator()
+        reset_link = f"http://127.0.0.1:8000/reset/{uid}/{token}/"
+        subject = "Password reset link"
+        email_content = f"Hi {user.username},\n\nThank you for signing up for our service. To verify your email address, please click on the following link:\n\n{reset_link}\n\nIf you do not click on the link within 24 hours, your account will be deleted.\n\nThanks,\nDjango Bloggers"
+        email_from = settings.EMAIL_HOST_USER
+        recepient_list = [email,]
+        send_mail(subject, email_content, email_from, recepient_list)
+    return render(request, "forget_pwd_logic.html", {"message": "Password reset link has been send successfully"})
 
-    return render(request, "forgetpasscode.html")
+
+def forgot_password_validation(request, user_id):
+
+    return render(request, "reset.html")
 
 
 def dashboard(request):
