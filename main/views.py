@@ -127,11 +127,12 @@ def reset(request):
         password2 = request.POST["psw2"]
         uid = request.POST['uid']
         token = request.POST['token']
-        if password == password2:
+
+        if password == password2 and uid is not None:
             decode_uid = smart_str(urlsafe_base64_decode(uid))
             user = User.objects.get(id=decode_uid)
             if user:
-                user.password = password
+                user.password = make_password(password)
                 user.save()
             else:
                 return render(request, "reset_logic.html", {"message": "User does not exists"})
