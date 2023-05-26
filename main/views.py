@@ -110,18 +110,52 @@ def forgot_password_logic(request):
     if user:
         uid = urlsafe_base64_encode(force_bytes(user.id))
         token = uuid_genrator()
-        reset_link = f"http://127.0.0.1:8000/reset/{uid}/{token}/"
+        reset_link = f"http://127.0.0.1:8000/reset?uid={uid}&token={token}/"
         subject = "Password reset link"
         email_content = f"Hi {user.username},\n\nThank you for signing up for our service. To verify your email address, please click on the following link:\n\n{reset_link}\n\nIf you do not click on the link within 24 hours, your account will be deleted.\n\nThanks,\nDjango Bloggers"
         email_from = settings.EMAIL_HOST_USER
         recepient_list = [email,]
         send_mail(subject, email_content, email_from, recepient_list)
-    return render(request, "forget_pwd_logic.html", {"message": "Password reset link has been send successfully"})
+    return render(request, "reset_logic.html", {"message": "Password reset link has been send successfully"})
 
 
-def forgot_password_validation(request, user_id):
+def reset(request):
+    if request.method == "GET":
+        return render(request, "reset_logic.html")
+    if request.method == "POST":
+        password = request.POST["psw1"]
+        password2 = request.POST["psw2"]
+        uid = request.POST['uid']
+        token = request.POST['token']
+        if password == password2:
+            decode_uid = smart_str(urlsafe_base64_decode(uid))
+            user = User.objects.get(id=decode_uid)
+            if user:
+                user.password = password
+                user.save()
+            else:
+                return render(request, "reset_logic.html", {"message": "User does not exists"})
+        else:
+            return render(request, "reset_logic.html", {"message": "Password do not match"})
+    return render(request, "login.html", {"message": "Password changed sucessfully.."})
 
-    return render(request, "reset.html")
+
+# def reset_validation(request):
+#     if request.method == "POST":
+#         password = request.POST["psw1"]
+#         password2 = request.POST["psw2"]
+#         uid = request.POST['uid']
+#         if password == password2:
+#             decode_uid = smart_str(urlsafe_base64_decode(uid))
+#             user = User.objects.get(id=decode_uid)
+#             if user:
+#                 user.password = password
+#                 user.save()
+#             else:
+#                 return render(request, "reset_logic.html", {"message": "User does not exists"})
+#         else:
+#             return render(request, "reset_logic.html", {"message": "Password do not match"})
+#     return render(request, "reset_logic.html", {"message": "Password changed sucessfully.."})
 
 
 def dashboard(request):

@@ -12,7 +12,7 @@ urlpatterns = [
     path('forgot_password/', views.forget_passcode, name='forget_passcode'),
     path('forgot_password_logic/', views.forgot_password_logic,
          name="forgot_password_logic"),
-    path('reset/<user_id>/<token>', views.forgot_password_validation,
-         name="forgot_pass_validation"),
+    path('reset/', views.reset,
+         name="reset"),
     path('dashboard/', views.dashboard, name="dashboard"),
 ]
