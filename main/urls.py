@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
+# for testing gunicor in production (DEBUG = True)
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -16,3 +18,4 @@ urlpatterns = [
          name="reset"),
     path('dashboard/', views.dashboard, name="dashboard"),
 ]
+urlpatterns += staticfiles_urlpatterns()
