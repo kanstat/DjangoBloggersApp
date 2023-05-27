@@ -116,7 +116,7 @@ def forgot_password_logic(request):
         email_from = settings.EMAIL_HOST_USER
         recepient_list = [email,]
         send_mail(subject, email_content, email_from, recepient_list)
-    return render(request, "reset_logic.html", {"message": "Password reset link has been send successfully"})
+    return render(request, "forgetpasscode.html", {"message": "Password reset link has been send successfully"})
 
 
 def reset(request):
