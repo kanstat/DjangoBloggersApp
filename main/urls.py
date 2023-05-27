@@ -17,5 +17,6 @@ urlpatterns = [
     path('reset/', views.reset,
          name="reset"),
     path('dashboard/', views.dashboard, name="dashboard"),
+    path('tinymce/', views.tinymce, name="tinymce"),
 ]
 urlpatterns += staticfiles_urlpatterns()

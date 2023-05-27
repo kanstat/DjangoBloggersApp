@@ -1,0 +1,24 @@
+body {
+    padding-top: 3em;
+}
+
+/* Basic styles for Table of Contents plugin (toc) */
+/* .mce-toc {
+      border: 1px solid gray;
+  }
+  
+  .mce-toc h2 {
+      margin: 4px;
+  }
+  
+  .mce-toc li {
+      list-style-type: none;
+  } */
+.col {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 50%;
+}

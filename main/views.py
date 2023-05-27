@@ -141,26 +141,12 @@ def reset(request):
     return render(request, "login.html", {"message": "Password changed sucessfully.."})
 
 
-# def reset_validation(request):
-#     if request.method == "POST":
-#         password = request.POST["psw1"]
-#         password2 = request.POST["psw2"]
-#         uid = request.POST['uid']
-#         if password == password2:
-#             decode_uid = smart_str(urlsafe_base64_decode(uid))
-#             user = User.objects.get(id=decode_uid)
-#             if user:
-#                 user.password = password
-#                 user.save()
-#             else:
-#                 return render(request, "reset_logic.html", {"message": "User does not exists"})
-#         else:
-#             return render(request, "reset_logic.html", {"message": "Password do not match"})
-#     return render(request, "reset_logic.html", {"message": "Password changed sucessfully.."})
-
-
 def dashboard(request):
     val = getcookies(request)
     user = User.objects.get(session_id=val)
     if user:
         return render(request, "dashboard.html")
+
+
+def tinymce(request):
+    return render(request, "tinymce.html")
