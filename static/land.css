@@ -93,6 +93,7 @@ strong {
     width: 90%;
     max-width: 30rem;
     display: flex;
+    gap: 10px;
 }
 
 .overlay__btn {
