@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import redirect, render, HttpResponse
 from . forms import UserForm
 from . models import User
 from django.contrib.auth.hashers import make_password, check_password
@@ -52,8 +52,7 @@ def login_logic(request):
                     session_id = uuid_genrator()
                     user_obj.session_id = session_id
                     user_obj.save()
-                    response = render(request, "dashboard.html", {
-                                      "message": "login sucessful"})
+                    response = redirect("dashboard/")
                     response.set_cookie('session_id', session_id)
                     return response
         except:
@@ -144,8 +143,9 @@ def reset(request):
 def dashboard(request):
     val = getcookies(request)
     user = User.objects.get(session_id=val)
+    user_name = user.username
     if user:
-        return render(request, "dashboard.html")
+        return render(request, "dashboard.html", {"context": user_name})
 
 
 def tinymce(request):
