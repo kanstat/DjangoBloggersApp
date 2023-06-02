@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, HttpResponse
 from . forms import UserForm
-from . models import User
+from . models import Tinymce, User
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils.encoding import smart_str
 from django.utils.encoding import force_bytes
@@ -149,4 +149,13 @@ def dashboard(request):
 
 
 def tinymce(request):
+    if request.method == "GET":
+        return render(request, "tinymce.html")
+
+    if request.method == "POST":
+        val = getcookies(request)
+        user = User.objects.get(session_id=val)
+        content = request.POST["textarea"]
+        tinymce_obj = Tinymce.objects.create(content=content, user_fk=user)
+        tinymce_obj.save()
     return render(request, "tinymce.html")
