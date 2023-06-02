@@ -10,3 +10,10 @@ class User(models.Model):
     session_id = models.CharField(max_length=100, default=0)
     time_stamp = models.DateTimeField(default=timezone.now)
     email_verification = models.BooleanField(default=0)
+
+
+class Tinymce(models.Model):
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
+    content = models.TextField()
+    user_fk = models.ForeignKey(User, models.CASCADE, default='')
