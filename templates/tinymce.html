@@ -14,28 +14,17 @@
 <div id="html-app" class="container-fluid">
   <div class="row">
     <div class="col">
-  <form method="post">
-    <textarea id="textarea" name="textarea">
-
-    
-    test
-    </textarea> 
-<!--     <button name="submitbtn">Save</button> -->
+  <form method="post" action = "{% url 'tinymce' %}">
+    {% csrf_token %}
+    <textarea id="textarea" name="textarea"></textarea> 
+      <button name="submitbtn">Save</button> 
   </form>
 
-    </div>
-<!-- <div class="col">
 
-  <form method="post">
-    <div editable id="divarea">
-      <p>This section of content can be edited. Click here to see how.</p>
-    </div>
-  </form>
-
-</div> -->
+{% comment %} </div>
   </div>
 
-</div>
+</div> {% endcomment %}
 
 <!--       <div id="lipsum"> -->
 <!-- <p> Finished on media button https://www.tinymce.com/docs/plugins/media/<br>
