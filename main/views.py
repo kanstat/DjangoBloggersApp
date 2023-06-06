@@ -144,8 +144,8 @@ def dashboard(request):
     val = getcookies(request)
     user = User.objects.get(session_id=val)
     blog = Tinymce.objects.filter(user_fk=user)
-    context = {"title": blog.title,
-               "content": blog.content, "user_name": user.username}
+
+    context = {"blog": blog, "user_name": user.username}
     if user:
         return render(request, "dashboard.html", context)
 
@@ -167,5 +167,5 @@ def view_blog(request):
     val = getcookies(request)
     user = User.objects.get(session_id=val)
     blog = Tinymce.objects.filter(user_fk=user)
-    context = {"title": blog.title, "content": blog.content}
+    context = {"blog": blog}
     return render(request, "blog_view.html", context)

@@ -1,2 +1,4 @@
 {% load static %}
-{{ content|safe }}
+{% for obj in blog %}
+{{ obj.content|safe }}
+{% endfor %}

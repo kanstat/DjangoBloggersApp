@@ -48,11 +48,15 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
+                {% for obj in blog%}
+                <div class="card" onclick="viewblog({{ obj.id }})" style="width: 20rem;">
                     <div class="card-body">
-                      <h5 class="card-title">{{ title }}</h5>
+                      <h5 class="card-title">{{ obj.title }}</h5>
                       <p class="card-text"><b>Untitled<b></p>
                       <a href="{% url 'view_blog' %}" class="btn btn-primary">View</a>
                     </div>
+                  </div>
+                  {% endfor %}
                 {% comment %} <div class="row">
                     <div class="col-lg-12">
                         <h1>Simple Sidebar</h1>
@@ -68,9 +72,20 @@
     </div>
     <!-- /#wrapper -->
 <!-- partial -->
-  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script>
+    function viewblog(blogid){
+        var blogsection = document.querySelectorAll('[id^="content"]');
+        blogsection.forEach(function(section){
+            section.style.display = 'none';
+        });
+        var blogsection = document.getElementById('content' + blogid);
+        blogsection.style.display = "block";
+    }
+</script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'></script>
 <script  src="{% static 'dashboard.js' %}" > </script>
+
 
 </body>
 </html>
