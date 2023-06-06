@@ -143,9 +143,11 @@ def reset(request):
 def dashboard(request):
     val = getcookies(request)
     user = User.objects.get(session_id=val)
-    user_name = user.username
+    blog = Tinymce.objects.filter(user_fk=user)
+    context = {"title": blog.title,
+               "content": blog.content, "user_name": user.username}
     if user:
-        return render(request, "dashboard.html", {"context": user_name})
+        return render(request, "dashboard.html", context)
 
 
 def tinymce(request):
@@ -159,3 +161,11 @@ def tinymce(request):
         tinymce_obj = Tinymce.objects.create(content=content, user_fk=user)
         tinymce_obj.save()
     return render(request, "tinymce.html")
+
+
+def view_blog(request):
+    val = getcookies(request)
+    user = User.objects.get(session_id=val)
+    blog = Tinymce.objects.filter(user_fk=user)
+    context = {"title": blog.title, "content": blog.content}
+    return render(request, "blog_view.html", context)
