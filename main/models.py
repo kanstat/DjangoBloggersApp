@@ -17,3 +17,4 @@ class Tinymce(models.Model):
     updated_at = models.DateField(auto_now_add=True)
     content = models.TextField()
     user_fk = models.ForeignKey(User, models.CASCADE, default='')
+    title = models.CharField(max_length=200, default='')
