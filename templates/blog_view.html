@@ -1,4 +1,35 @@
 {% load static %}
-{% for obj in blog %}
-{{ obj.content|safe }}
-{% endfor %}
+{% comment %} {{ blog|safe }} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'blog_view.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="infobox">
+<h2 style="text-align: center;">Popular post from this blog</h2>
+<h3 id = date>{{date}}</h3>
+
+{% comment %} This will apply the resized image to the background of every page that referances the stylesheet. if for example you want it to only be on one page kinda like twitter has it only on their landing page and not all the others. you can easly accomplish this by changing the css rule to:
+ <br>
+ <br>
+"body.landing" instead of just "body" ("landing" can be anything you want)
+<br>
+  <br>
+then on the desired page you body tag should look like this: {% endcomment %}
+<br><br>
+<body class="landing" style="text-align: center;"> {{ blog|safe }} <body >
+<br><br>
+</div>
+<!-- partial -->
+  
+</body>
+<div class="container">
+    
+    <a href="{% url 'dashboard' %}" class="back-button">&larr; Back</a>
+</div>
+</html>
