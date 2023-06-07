@@ -18,6 +18,9 @@
     {% csrf_token %}
     <textarea id="textarea" name="textarea"></textarea> 
       <button name="submitbtn">Save</button> 
+      <div class="container">
+        <a href="{% url 'dashboard' %}" class="back-button">&larr; Back</a>
+   </div>
   </form>
 
 

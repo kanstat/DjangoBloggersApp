@@ -89,3 +89,21 @@ input[type="password"],
 .loginbox a:hover {
     color: #ffc107;
 }
+
+.container {
+    position: relative;
+    min-height: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.back-button {
+    background: linear-gradient(#e66465, #9198e5);
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}

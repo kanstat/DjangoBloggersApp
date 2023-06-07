@@ -22,6 +22,9 @@
                 <a href="{% url 'login' %}">Already have an account?</a>
                 <p>{{ message }}</p>
             </form>
+            <div class="container">
+                <a href="{% url 'home' %}" class="back-button">&larr; Back</a>
+           </div> 
         </div>
         </body>
 {% endblock %}
