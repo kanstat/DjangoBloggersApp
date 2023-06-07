@@ -163,9 +163,8 @@ def tinymce(request):
     return render(request, "tinymce.html")
 
 
-def view_blog(request):
+def view_blog(request, id):
     val = getcookies(request)
-    user = User.objects.get(session_id=val)
-    blog = Tinymce.objects.filter(user_fk=user)
-    context = {"blog": blog}
+    blog = Tinymce.objects.get(id=id)
+    context = {"blog": blog.content, "date": blog.created_at}
     return render(request, "blog_view.html", context)
