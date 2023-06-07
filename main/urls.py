@@ -18,6 +18,6 @@ urlpatterns = [
          name="reset"),
     path('dashboard/', views.dashboard, name="dashboard"),
     path('tinymce/', views.tinymce, name="tinymce"),
-    path("view_blog/", views.view_blog, name="view_blog"),
+    path("view_blog/<id>", views.view_blog, name="view_blog"),
 ]
 urlpatterns += staticfiles_urlpatterns()
