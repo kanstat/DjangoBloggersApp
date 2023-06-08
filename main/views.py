@@ -168,3 +168,10 @@ def view_blog(request, id):
     blog = Tinymce.objects.get(id=id)
     context = {"blog": blog.content, "date": blog.created_at}
     return render(request, "blog_view.html", context)
+
+
+def edit_blog(request, id):
+    val = getcookies(request)
+    blog = Tinymce.objects.get(id=id)
+    context = {"blog": blog.content, "date": blog.created_at}
+    return render(request, "edit_blog.html")
