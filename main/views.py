@@ -158,7 +158,9 @@ def tinymce(request):
         val = getcookies(request)
         user = User.objects.get(session_id=val)
         content = request.POST["textarea"]
-        tinymce_obj = Tinymce.objects.create(content=content, user_fk=user)
+        blog_title = request.POST["blogTitle"]
+        tinymce_obj = Tinymce.objects.create(
+            content=content, user_fk=user, title=blog_title)
         tinymce_obj.save()
     return render(request, "tinymce.html")
 
@@ -173,5 +175,6 @@ def view_blog(request, id):
 def edit_blog(request, id):
     val = getcookies(request)
     blog = Tinymce.objects.get(id=id)
-    context = {"blog": blog.content, "date": blog.created_at}
-    return render(request, "edit_blog.html")
+    context = {"blog_content": blog.content,
+               "date": blog.created_at, "blogTitle": blog.title}
+    return render(request, "edit_blog.html", context)
