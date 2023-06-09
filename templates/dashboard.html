@@ -50,8 +50,11 @@
                 {% for obj in blog%}
                 <div class="card" onclick="viewblog({{ obj.id }})" style="width: 20rem;">
                     <div class="card-body">
-                      <h5 class="card-title">{{ obj.title }}</h5>
+                    {% if obj.title %}
+                      <h5 class="card-text"><b>{{ obj.title }}<b></h5>
+                    {% else %}
                       <p class="card-text"><b>Untitled<b></p>
+                    {% endif %}
                       <a href="{% url 'view_blog' obj.id %}" class="btn btn-primary">View</a>
                       <a href="{% url 'edit_blog' obj.id %}" class="btn btn-primary">Edit</a>
                     </div>

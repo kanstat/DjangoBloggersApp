@@ -45,6 +45,7 @@ body {
     width: 100%;
     position: absolute;
     padding: 15px;
+    background-color: #363535;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -128,13 +129,33 @@ body {
     }
 
     .card {
-        border: 1px solid #0f0e0e;
+        border: 1px solid #393939;
         /* border-color: {{ border_color }; */
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 10px;
         margin: 20px;
+        background-color: #161516;
     }
 
 
+    .card-text {
+        font-weight: 700;
+        color: #8d8383;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #3d4042;
+        border-color: #282828;
+        border-radius: 15px;
+        margin: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #161111;
+        color: #fff;
+        border-color: #fff
+    }
 }
