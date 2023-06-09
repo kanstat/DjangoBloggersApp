@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, HttpResponse
+from django.urls import reverse
 from . forms import UserForm
 from . models import Tinymce, User
 from django.contrib.auth.hashers import make_password, check_password
@@ -16,6 +17,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .uuid_gen import uuid_genrator
 from django.conf import settings
 from django.core.mail import send_mail
+from django.urls import reverse
 
 # Create your views here.
 
@@ -162,7 +164,7 @@ def tinymce(request):
         tinymce_obj = Tinymce.objects.create(
             content=content, user_fk=user, title=blog_title)
         tinymce_obj.save()
-    return render(request, "tinymce.html")
+    return render(request, "dashboard.html")
 
 
 def view_blog(request, id):
@@ -176,5 +178,20 @@ def edit_blog(request, id):
     val = getcookies(request)
     blog = Tinymce.objects.get(id=id)
     context = {"blog_content": blog.content,
-               "date": blog.created_at, "blogTitle": blog.title}
+               "date": blog.created_at, "blogTitle": blog.title, "id": blog.id}
     return render(request, "edit_blog.html", context)
+
+
+def update_blog(request, id):
+    val = getcookies(request)
+    user = User.objects.get(session_id=val)
+    if user:
+        blog_to_edit = Tinymce.objects.get(id=id)
+
+        blog_content = request.POST["textarea"]
+        blog_title = request.POST["blogTitle"]
+
+        blog_to_edit.title = blog_title
+        blog_to_edit.content = blog_content
+        blog_to_edit.save()
+    return redirect(reverse('view_blog', kwargs={'id': id}))
