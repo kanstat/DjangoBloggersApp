@@ -1,5 +1,8 @@
 body {
     padding-top: 3em;
+    padding-left: 150px;
+    padding-right: 150px;
+    background-color: #262525;
 }
 
 /* Basic styles for Table of Contents plugin (toc) */
@@ -21,4 +24,9 @@ body {
     -ms-flex-positive: 1;
     flex-grow: 1;
     max-width: 100%;
+}
+
+.input-wrapper {
+    max-width: 100%;
+
 }
