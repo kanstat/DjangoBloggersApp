@@ -18,3 +18,5 @@ class Tinymce(models.Model):
     content = models.TextField()
     user_fk = models.ForeignKey(User, models.CASCADE, default='')
     title = models.CharField(max_length=200, default='Untitled')
+    published_url = models.URLField(default='')
+    pub_url_active = models.BooleanField(default=False)
