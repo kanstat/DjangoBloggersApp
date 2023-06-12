@@ -195,3 +195,12 @@ def update_blog(request, id):
         blog_to_edit.content = blog_content
         blog_to_edit.save()
     return redirect(reverse('view_blog', kwargs={'id': id}))
+
+
+def publish_url(request, id):
+    val = getcookies(request)
+    user = User.objects.get(session_id=val)
+    if user:
+        published_url = "127.0.0.1:8000/published_blog/{id}"
+
+        return render('view_blog', kwargs={'id': id})
