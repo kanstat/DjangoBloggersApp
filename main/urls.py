@@ -23,6 +23,7 @@ urlpatterns = [
     path("edit_blog/<id>", views.edit_blog, name="edit_blog"),
     path("update_blog/<id>", views.update_blog, name="update_blog"),
     path("publish_url/<id>", views.publish_url, name="publish_url"),
-    path("published_blog", views.published_blog, name="published_blog"),
+    path("published_blog/<id>/<token>",
+         views.published_blog, name="published_blog"),
 ]
 urlpatterns += staticfiles_urlpatterns()
