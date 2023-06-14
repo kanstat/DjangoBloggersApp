@@ -25,5 +25,6 @@ urlpatterns = [
     path("publish_url/<id>", views.publish_url, name="publish_url"),
     path("published_blog/<id>/<token>",
          views.published_blog, name="published_blog"),
+    path("share_blog/", views.share_blog, name="share_blog"),
 ]
 urlpatterns += staticfiles_urlpatterns()

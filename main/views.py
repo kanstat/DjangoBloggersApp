@@ -170,7 +170,7 @@ def tinymce(request):
 def view_blog(request, id):
     val = getcookies(request)
     blog = Tinymce.objects.get(id=id)
-    context = {"blog": blog.content, "date": blog.created_at}
+    context = {"blog": blog.content, "date": blog.created_at, "id": blog.id}
     return render(request, "blog_view.html", context)
 
 
@@ -200,7 +200,23 @@ def update_blog(request, id):
 def publish_url(request, id):
     val = getcookies(request)
     user = User.objects.get(session_id=val)
+    rndm = uuid_genrator()
     if user:
-        published_url = "127.0.0.1:8000/published_blog/{id}"
+        blog = Tinymce.objects.get(id=id)
+        if blog.published_url == '':
+            published_url = f"127.0.0.1:8000/published_blog/{id}/{rndm}"
+            blog.published_url = published_url
+            blog.pub_url_active = True
+            blog.save()
 
-        return render('view_blog', kwargs={'id': id})
+    # return (request,)
+
+
+def published_blog(request, id, token):
+    blog = Tinymce.objects.get(id=id)
+    context = {"blog": blog.content, "date": blog.created_at, "id": blog.id}
+    return render(request, "published_blog.html", context)
+
+
+def share_blog(request):
+    return render(request, "share_blog.html")
