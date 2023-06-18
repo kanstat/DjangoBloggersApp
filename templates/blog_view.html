@@ -5,9 +5,43 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="{% static 'blog_view.css' %}">
-
-</head>
+  <link rel="stylesheet" href="{% static 'blog_view2.css' %}">
 <body>
+  <div class="button-container">
+    <button type="button" onclick="toggleForm()">Open Form</button>
+</div>
+<div id="popup-form" class="form-container">
+    <form>
+        <div>
+            <label for="published-url">Published URL:</label>
+            <input type="text" id="published-url" name="published-url">
+            <button type="button" onclick="copyUrl()">Copy URL</button>
+        </div>
+
+        <div>
+            <button type="button">Edit</button>
+            <button type="button">Preview</button>
+        </div>
+
+        <div>
+            <label for="read-permissions">Read Permissions:</label>
+            <select id="read-permissions" name="read-permissions">
+                <option value="everyone">Everyone</option>
+                <option value="onlyme">Only Me</option>
+                <option value="signed-in-users">Signed-in Users</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="write-permissions">Write Permissions:</label>
+            <select id="write-permissions" name="write-permissions">
+                <option value="everyone">Everyone</option>
+                <option value="onlyme">Only Me</option>
+                <option value="signed-in-users">Signed-in Users</option>
+            </select>
+        </div>
+    </form>
+</div>
 <div class="infobox">
 <h2 style="text-align: center;">Popular post from this blog</h2>
 <h3 id = date>{{date}}</h3>
@@ -23,10 +57,27 @@ then on the desired page you body tag should look like this: {% endcomment %}
 <body class="landing" style="text-align: center;"> {{ blog|safe }} <body >
 <br><br>
 </div>
-  
+{% comment %} <div class="container">
+    
+  <a href="{% url 'publish_url' id=id %}" class="back-button"><b>Publish Blog</b></a>
+</div> {% endcomment %}
+{% if published_url %}
+<div class="container">
+    
+  <a href="{% url 'publish_url' id=id %}" class="back-button"><b>{{ published_url }}</b></a>
+</div>
+{% endif %}
+<button onclick="display_url()">Publish</button>
+<div id="pub_url">url_elem</div>
+
+<script src="{% static 'view_blog.js' %}"> </script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+<script  src="{% static 'blog_view.js' %}" ></script>
+
 </body>
 <div class="container">
     
-    <a href="{% url 'dashboard' %}" class="back-button">&larr; Back</a>
+    <a href="{% url 'dashboard' %}" class="back-button"><b>&larr; Back</b></a>
 </div>
 </html>

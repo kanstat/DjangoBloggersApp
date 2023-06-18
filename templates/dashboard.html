@@ -22,7 +22,7 @@
                     <a href="{% url 'tinymce' %}">New Post</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="#">Share</a>
                 </li>
                 <li>
                     <a href="#">Overview</a>
@@ -47,8 +47,8 @@
 
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                {% for obj in blog%}
-                <div class="card" onclick="viewblog({{ obj.id }})" style="width: 20rem;">
+                {% for obj in blog %}
+                <div class="card"  style="width: 20rem;">
                     <div class="card-body">
                     {% if obj.title %}
                       <h5 class="card-text"><b>{{ obj.title }}</b></h5>
@@ -66,7 +66,7 @@
 
     </div>
 
-<script>
+{% comment %} <script>
     function viewblog(blogid){
         var blogsection = document.querySelectorAll('[id^="content"]');
         blogsection.forEach(function(section){
@@ -75,7 +75,7 @@
         var blogsection = document.getElementById('content' + blogid);
         blogsection.style.display = "block";
     }
-</script>
+</script> {% endcomment %}
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js'></script>
 <script  src="{% static 'dashboard.js' %}" > </script>

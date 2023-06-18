@@ -18,6 +18,7 @@ from .uuid_gen import uuid_genrator
 from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -218,5 +219,18 @@ def published_blog(request, id, token):
     return render(request, "published_blog.html", context)
 
 
-def share_blog(request):
-    return render(request, "share_blog.html")
+def url_to_db(request, id):
+    blog_id = int(id)
+    blog = Tinymce.objects.get(id=blog_id)
+    if blog.pub_url_active == False:
+        rndm = uuid_genrator()
+        # rndm = rndm[1:7]
+        published_url = f"127.0.0.1:8000/published_blog/{id}/{rndm}"
+        blog.published_url = published_url
+        blog.pub_url_active = True
+        blog.save()
+        data = {"published_url": published_url}
+    elif blog.pub_url_active == True:
+        published_url = blog.published_url
+        data = {"published_url": published_url}
+    return JsonResponse(data)
