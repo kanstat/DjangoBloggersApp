@@ -2,7 +2,7 @@ let g_url = "";
 
 function toggleForm() {
     var form = document.getElementById('popup-form');
-    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    form.style.display = form.style.display === 'none' | form.style.display === '' ? 'block' : 'none';
 
     var csrftoken = Cookies.get('csrftoken');
 
@@ -22,6 +22,8 @@ function toggleForm() {
         .then(response => response.json())
         .then(data => {
             g_url = data.published_url;
+            var url_inp_field = document.getElementById("published-url")
+            url_inp_field.value = g_url;
             // Handle the retrieved data
         })
         .catch(error => {
