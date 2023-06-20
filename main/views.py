@@ -19,6 +19,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
 from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -213,10 +214,10 @@ def publish_url(request, id):
     # return (request,)
 
 
-def published_blog(request, id, token):
-    blog = Tinymce.objects.get(id=id)
-    context = {"blog": blog.content, "date": blog.created_at, "id": blog.id}
-    return render(request, "published_blog.html", context)
+# def published_blog(request, id, token):
+#     blog = Tinymce.objects.get(id=id)
+#     context = {"blog": blog.content, "date": blog.created_at, "id": blog.id}
+#     return render(request, "published_blog.html", context)
 
 
 def url_to_db(request, id):
@@ -234,3 +235,47 @@ def url_to_db(request, id):
         published_url = blog.published_url
         data = {"published_url": published_url}
     return JsonResponse(data)
+
+
+def change_perm(request, id):
+    blog_id = int(id)
+    blog = Tinymce.objects.get(id=blog_id)
+    user = blog.user_fk
+    permissions = request.body
+    permissions = json.loads(permissions)
+    read_perm = permissions['new_read']
+    write_perm = permissions['new_write']
+    if user:
+        user.read_permission = read_perm
+        user.write_permission = write_perm
+        user.save()
+        return redirect(reverse('view_blog', kwargs={'id': id}))
+    else:
+        return render(request, "not_found404.html")
+
+
+def published_blog(request, id, token):
+    blog = Tinymce.objects.get(id=id)
+    user = blog.user_fk
+    read_perm = user.read_permission
+    write_perm = user.write_permission
+    context = {"blog": blog.content, "date": blog.created_at,
+               "id": blog.id, "read_perm": read_perm, "write_perm": write_perm}
+    try:
+        if read_perm == "everyone":
+            return render(request, "published_blog.html", context)
+        elif read_perm == 'signed-in-users':
+            val = getcookies(request)
+            user = User.objects.get(session_id=val)
+            if user:
+                return render(request, "published_blog.html", context)
+            else:
+                return redirect('login/')
+        elif read_perm == 'onlyme':
+            val = getcookies(request)
+            user_ = User.objects.get(session_id=val)
+            user = blog.user_fk
+            if user == user_:
+                return render(request, "published_blog.html", context)
+    except:
+        return render(request, "not_found404.html")

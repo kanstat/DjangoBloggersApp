@@ -25,5 +25,15 @@ then on the desired page you body tag should look like this: {% endcomment %}
 </div>
 
 </body>
+<div class="container">
+    
+  <a href="{% url 'dashboard' %}" class="back-button"><b>&larr; Back</b></a>
+</div>
+{% if write_perm == 'everyone' or write_perm == 'signed-in-users' %}
+<div class="container">
+  {% comment %} 'onlyme''signed-in-users' {% endcomment %}
+  <a href="{% url 'dashboard' %}" class="back-button"><b>&larr; Edit</b></a>
+</div>
+{% endif %}
 
 </html>

@@ -31,7 +31,7 @@
 
         <div>
             <label for="read-permissions">Read Permissions:</label>
-            <select id="read-permissions" name="read-permissions">
+            <select id="read-permissions" name="read-permissions" onchange="change_perm()">
                 <option value="everyone">Everyone</option>
                 <option value="onlyme">Only Me</option>
                 <option value="signed-in-users">Signed-in Users</option>
@@ -40,7 +40,7 @@
 
         <div>
             <label for="write-permissions">Write Permissions:</label>
-            <select id="write-permissions" name="write-permissions">
+            <select id="write-permissions" name="write-permissions" onchange="change_perm()">
                 <option value="everyone">Everyone</option>
                 <option value="onlyme">Only Me</option>
                 <option value="signed-in-users">Signed-in Users</option>
@@ -67,14 +67,14 @@ then on the desired page you body tag should look like this: {% endcomment %}
     
   <a href="{% url 'publish_url' id=id %}" class="back-button"><b>Publish Blog</b></a>
 </div> {% endcomment %}
-{% if published_url %}
+{% comment %} {% if published_url %}
 <div class="container">
     
   <a href="{% url 'publish_url' id=id %}" class="back-button"><b>{{ published_url }}</b></a>
 </div>
-{% endif %}
-<button onclick="display_url()">Publish</button>
-<div id="pub_url">url_elem</div>
+{% endif %} {% endcomment %}
+{% comment %} <button onclick="display_url()">Publish</button>
+<div id="pub_url">url_elem</div> {% endcomment %}
 
 <script src="{% static 'view_blog.js' %}"> </script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>

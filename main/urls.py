@@ -26,5 +26,6 @@ urlpatterns = [
     path("published_blog/<id>/<token>",
          views.published_blog, name="published_blog"),
     path("url_to_db/<id>/", views.url_to_db, name="url_to_db"),
+    path("change_perm/<id>/", views.change_perm, name="change_perm")
 ]
 urlpatterns += staticfiles_urlpatterns()
