@@ -12,6 +12,7 @@ class User(models.Model):
     email_verification = models.BooleanField(default=0)
     read_permission = models.CharField(max_length=50, default='')
     write_permission = models.CharField(max_length=50, default='')
+    telegram_id = models.IntegerField(default=0)
 
 
 class Tinymce(models.Model):
