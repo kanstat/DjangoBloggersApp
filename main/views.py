@@ -20,6 +20,8 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from django.http import JsonResponse
 import json
+from rest_framework.views import APIView
+from main.serializers import *
 
 # Create your views here.
 
@@ -42,15 +44,19 @@ def activate(request, user_id, token):
     return render(request, "login.html")
 
 
-def login_logic(request):
+def login_logic(request, *args, **kwargs):
     if request.method == "POST":
         email = request.POST['email']
         raw_password = request.POST['password']
+        tg_id = request.POST["tgid"]
         try:
             user_obj = User.objects.get(email=email)
             hashed_pasword = user_obj.password
             if user_obj:
                 res = check_password(raw_password, hashed_pasword)
+                if tg_id:
+                    user_obj.telegram_id = tg_id
+                    user_obj.save()
 
                 if res and user_obj.email_verification == 1:
                     session_id = uuid_genrator()
@@ -59,6 +65,7 @@ def login_logic(request):
                     response = redirect("dashboard/")
                     response.set_cookie('session_id', session_id)
                     return response
+
         except:
             return render(request, "login.html", {"message": "incorrect email or password or verify ypur email first"})
 
@@ -145,13 +152,16 @@ def reset(request):
 
 
 def dashboard(request):
-    val = getcookies(request)
-    user = User.objects.get(session_id=val)
-    blog = Tinymce.objects.filter(user_fk=user)
+    try:
+        val = getcookies(request)
+        user = User.objects.get(session_id=val)
+        blog = Tinymce.objects.filter(user_fk=user)
 
-    context = {"blog": blog, "user_name": user.username}
-    if user:
-        return render(request, "dashboard.html", context)
+        context = {"blog": blog, "user_name": user.username}
+        if user:
+            return render(request, "dashboard.html", context)
+    except:
+        return render(request, "login.html")
 
 
 def tinymce(request):
@@ -279,3 +289,31 @@ def published_blog(request, id, token):
                 return render(request, "published_blog.html", context)
     except:
         return render(request, "not_found404.html")
+
+
+# Apis for telegram
+class UserAuthView(APIView):
+
+    # def post(self,request,format=None):
+    #     serializer = UserAuthSerializer(data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         email=serializer.data.get('email')
+
+    def get(self, request, format=None):
+        val = getcookies(request)
+        if val:
+            try:
+                loggedin_user = User.objects.get(session_id=val)
+                tg_id = request.GET["tgid"]
+
+                loggedin_user.telegram_id = tg_id
+                loggedin_user.save()
+                return HttpResponse("SUCCESS")
+            except:
+                return HttpResponse("some error")
+        else:
+            try:
+                tg_id = request.GET["tgid"]
+                return redirect(f"/loginpg?tgid={tg_id}")
+            except:
+                return HttpResponse("Telegram id not recevied")
