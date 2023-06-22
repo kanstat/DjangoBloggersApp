@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 # for testing gunicor in production (DEBUG = True)
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
+from main.views import UserAuthView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -26,6 +26,7 @@ urlpatterns = [
     path("published_blog/<id>/<token>",
          views.published_blog, name="published_blog"),
     path("url_to_db/<id>/", views.url_to_db, name="url_to_db"),
-    path("change_perm/<id>/", views.change_perm, name="change_perm")
+    path("change_perm/<id>/", views.change_perm, name="change_perm"),
+    path("link/", UserAuthView.as_view(), name="link_tg"),
 ]
 urlpatterns += staticfiles_urlpatterns()
