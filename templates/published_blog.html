@@ -32,7 +32,7 @@ then on the desired page you body tag should look like this: {% endcomment %}
 {% if write_perm == 'everyone' or write_perm == 'signed-in-users' %}
 <div class="container">
   {% comment %} 'onlyme''signed-in-users' {% endcomment %}
-  <a href="{% url 'dashboard' %}" class="back-button"><b>&larr; Edit</b></a>
+  <a href="{% url 'dashboard' %}" class="back-button"><b>Edit</b></a>
 </div>
 {% endif %}
 
