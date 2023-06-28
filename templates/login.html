@@ -18,7 +18,7 @@
                 <input type="submit" name="" value = "Login">
                 <input type="hidden" id="tgid" name="tgid"><br>
                 <a href="{% url 'forget_passcode' %}">Lost your passcode?</a><br>
-                <a href="{% url 'signup' %}">Don't have an account?</a>
+                <a id="next_page" href="{% url 'signup' %}">Don't have an account?</a>
                 <p>{{ message }}</p>
             </form>
             <div class="container">

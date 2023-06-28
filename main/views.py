@@ -22,6 +22,7 @@ from django.http import JsonResponse
 import json
 from rest_framework.views import APIView
 from main.serializers import *
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -294,11 +295,6 @@ def published_blog(request, id, token):
 # Apis for telegram
 class UserAuthView(APIView):
 
-    # def post(self,request,format=None):
-    #     serializer = UserAuthSerializer(data=request.data)
-    #     if serializer.is_valid(raise_exception=True):
-    #         email=serializer.data.get('email')
-
     def get(self, request, format=None):
         val = getcookies(request)
         if val:
@@ -317,3 +313,10 @@ class UserAuthView(APIView):
                 return redirect(f"/loginpg?tgid={tg_id}")
             except:
                 return HttpResponse("Telegram id not recevied")
+
+
+class ViewBlogContent(APIView):
+    def get(self, request, format=None):
+        query_data = Tinymce.objects.all()
+        serializer = ViewBlogSerializer(query_data, many=True)
+        return Response(serializer.data)
